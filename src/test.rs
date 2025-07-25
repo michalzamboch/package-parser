@@ -28,7 +28,8 @@ mod tests {
 
     #[test]
     fn test_first_four_packages() {
-        let result = parse_packages(BASIC_INPUT).into_iter().collect::<Vec<&str>>();
+        let mut result = parse_packages(BASIC_INPUT).into_iter().collect::<Vec<&str>>();
+        result.sort();
 
         assert_eq!(result[0], "Autofac"); 
         assert_eq!(result[1], "Microsoft.Extensions.DependencyInjection"); 
