@@ -1,10 +1,6 @@
 use std::collections::HashSet;
 
 pub fn parse_packages(input: &str) -> HashSet<&str> {
-    if input.is_empty() {
-        return HashSet::new();
-    }
-
     input
         .split("\n")
         .map(|l| l.trim())
