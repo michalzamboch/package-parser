@@ -1,4 +1,3 @@
-
 #[allow(dead_code)]
 
 static BASIC_INPUT: &'static str = "

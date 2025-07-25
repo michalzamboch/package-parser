@@ -1,12 +1,11 @@
 use std::collections::HashSet;
 
-
 pub fn parse_packages(input: &str) -> HashSet<&str> {
     if input.is_empty() {
         return HashSet::new();
     }
-    
-    return input
+
+    input
         .split("\n")
         .map(|l| l.trim())
         .filter(|l| l.starts_with(">"))
@@ -20,5 +19,5 @@ pub fn parse_packages(input: &str) -> HashSet<&str> {
             }
         })
         .filter(|l| !l.is_empty())
-        .collect::<HashSet<&str>>();
+        .collect::<HashSet<&str>>()
 }
