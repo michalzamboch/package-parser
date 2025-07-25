@@ -46,7 +46,9 @@ mod tests {
     #[test]
     fn test_empty() {
         let result = parse_packages("");
+        assert_eq!(result.len(), 0); 
         
+        let result = parse_packages("    ");
         assert_eq!(result.len(), 0); 
     }
 }
