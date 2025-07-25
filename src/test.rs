@@ -23,17 +23,23 @@ Project 'ApplicationLayer' has the following package references
 
 #[cfg(test)]
 mod tests {
-    use crate::parser::parse_packages;
-
+    use crate::parser::*;
     use super::*; 
 
     #[test]
-    fn test_add_positive_numbers() {
-        let result = parse_packages(BASIC_INPUT);
+    fn test_first_four_packages() {
+        let result = parse_packages(BASIC_INPUT).into_iter().collect::<Vec<&str>>();
 
         assert_eq!(result[0], "Autofac"); 
         assert_eq!(result[1], "Microsoft.Extensions.DependencyInjection"); 
         assert_eq!(result[2], "Microsoft.Extensions.DependencyInjection.Abstractions"); 
         assert_eq!(result[3], "System.Diagnostics.DiagnosticSource"); 
+    }
+
+    #[test]
+    fn test_only_four_packages() {
+        let result = parse_packages(BASIC_INPUT);
+        
+        assert_eq!(result.len(), 4); 
     }
 }

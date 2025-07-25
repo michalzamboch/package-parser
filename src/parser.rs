@@ -1,7 +1,9 @@
+use std::collections::HashSet;
 
-pub fn parse_packages(input: &str) -> Vec<&str> {
+
+pub fn parse_packages(input: &str) -> HashSet<&str> {
     if input.is_empty() {
-        return vec![];
+        return HashSet::new();
     }
     
     return input
@@ -18,5 +20,5 @@ pub fn parse_packages(input: &str) -> Vec<&str> {
             }
         })
         .filter(|l| !l.is_empty())
-        .collect();
+        .collect::<HashSet<&str>>();
 }
