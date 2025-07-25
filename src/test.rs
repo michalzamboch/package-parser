@@ -42,4 +42,11 @@ mod tests {
         
         assert_eq!(result.len(), 4); 
     }
+
+    #[test]
+    fn test_empty() {
+        let result = parse_packages("");
+        
+        assert_eq!(result.len(), 0); 
+    }
 }
