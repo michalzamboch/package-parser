@@ -5,15 +5,18 @@ pub fn parse_packages(input: &str) -> HashSet<&str> {
         .split("\n")
         .map(|l| l.trim())
         .filter(|l| l.starts_with(">"))
-        .map(|l| {
-            let result: Vec<&str> = l.split_whitespace().collect();
-            let package = result.get(1);
-
-            match package {
-                Some(x) => x,
-                None => "",
-            }
-        })
+        .map(get_package_from_line)
         .filter(|l| !l.is_empty())
         .collect::<HashSet<&str>>()
+}
+
+fn get_package_from_line(line: &str) -> &str {
+    let result  = line
+        .split_whitespace()
+        .collect::<Vec<&str>>();
+
+    match result.get(1) {
+        Some(x) => x,
+        None => "",
+    }
 }
