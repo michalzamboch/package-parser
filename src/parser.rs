@@ -1,5 +1,5 @@
 
-pub fn parse_packages(input: &str) -> Vec<String> {
+pub fn parse_packages(input: &str) -> Vec<&str> {
     if input.is_empty() {
         return vec![];
     }
@@ -15,7 +15,7 @@ pub fn parse_packages(input: &str) -> Vec<String> {
             match package {
                 Some(x) => x,
                 None => "",
-            }.to_string()
+            }
         })
         .filter(|l| !l.is_empty())
         .collect();
