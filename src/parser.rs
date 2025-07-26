@@ -1,6 +1,12 @@
 use std::collections::HashSet;
 
-pub fn parse_packages(input: &str) -> HashSet<&str> {
+pub fn parse_packages(input: &str) -> Vec<&str> {
+    let mut result = filter_all_packages(input).into_iter().collect::<Vec<&str>>();
+    result.sort();
+    result
+}
+
+fn filter_all_packages(input: &str) -> HashSet<&str> {
     input
         .split("\n")
         .map(|l| l.trim())
