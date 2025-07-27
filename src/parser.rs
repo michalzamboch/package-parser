@@ -2,6 +2,43 @@
 
 use std::collections::*;
 
+pub fn create_masked_packages(map: HashMap<&str, Vec<&str>>) -> Vec<String> {
+    let mut packages: Vec<String> = vec![];
+
+    for (k, v) in map.iter() {
+        if v.len() == 0 {
+            continue;
+        }
+
+        if v.len() > 1 {
+            let masked = get_masked_name(k);
+            packages.push(masked);
+        }
+        else {
+            let key = k.to_string();
+            let first_value = v[0].to_string();
+
+            if key == first_value {
+                packages.push(k.to_string());
+            }
+            else {
+                let masked = get_masked_name(k);
+                packages.push(masked);
+            }
+        }
+    }
+
+    packages.sort();
+    packages
+}
+
+fn get_masked_name(k: &str) -> String {
+    let mut masked = String::with_capacity(k.len() + 3);
+    masked.push_str(k);
+    masked.push_str(".*");
+    masked
+}
+
 pub fn create_package_map(packages: Vec<&str>) -> HashMap<&str, Vec<&str>> {
     let mut map: HashMap<&str, Vec<&str>> = HashMap::new();
 

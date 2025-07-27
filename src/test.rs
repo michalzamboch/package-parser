@@ -22,6 +22,7 @@ Project 'ApplicationLayer' has the following package references
 
 #[cfg(test)]
 mod tests {
+    use std::collections::*;
     use crate::parser::*;
     use super::*; 
 
@@ -91,5 +92,27 @@ mod tests {
         assert_eq!(map["Microsoft"][1], "Microsoft.Extensions.DependencyInjection.Abstractions");
 
         assert_eq!(map["System"][0], "System.Diagnostics.DiagnosticSource");
+    }
+
+    #[test]
+    fn test_masked_packages() {
+        let packages = parse_packages(BASIC_INPUT);
+        let map = create_package_map(packages);
+        let masked_packages = create_masked_packages(map);
+        
+        assert_eq!(masked_packages.len(), 3);
+        assert_eq!(masked_packages[0], "Autofac"); 
+        assert_eq!(masked_packages[1], "Microsoft.*"); 
+        assert_eq!(masked_packages[2], "System.*"); 
+    }
+
+    #[test]
+    fn test_broken_masked_packages() {
+        let mut map: HashMap<&str, Vec<&str>>  = HashMap::new();
+        map.insert("hello", vec![]);
+
+        let masked_packages = create_masked_packages(map);
+
+        assert_eq!(masked_packages.len(), 0);
     }
 }
