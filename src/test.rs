@@ -20,6 +20,20 @@ Project 'ApplicationLayer' has the following package references
    > Microsoft.Extensions.DependencyInjection.Abstractions      9.0.7   
 ";
 
+static SERILOG_INPUT: &'static str = "
+Project 'Package' has the following package references
+   [net8.0-windows7.0]:
+   Top-level Package      Requested   Resolved
+   > OneOf                3.0.271     3.0.271
+
+   Transitive Package           Resolved
+   > MathNet.Numerics           5.0.0
+   > Serilog                    4.2.0
+   > Serilog.Sinks.Console      6.0.0
+   > Serilog.Sinks.Debug        3.0.0
+   > Serilog.Sinks.File         6.0.0
+";
+
 #[cfg(test)]
 mod tests {
     use std::collections::*;
@@ -114,5 +128,18 @@ mod tests {
         let masked_packages = create_masked_packages(map);
 
         assert_eq!(masked_packages.len(), 0);
+    }
+
+    #[test]
+    fn test_separated_masked_packages() {
+        let packages = parse_packages(SERILOG_INPUT);
+        let map = create_package_map(packages);
+        let masked_packages = create_masked_packages(map);
+
+        assert_eq!(masked_packages.len(), 4);
+        assert_eq!(masked_packages[0], "MathNet.*"); 
+        assert_eq!(masked_packages[1], "OneOf"); 
+        assert_eq!(masked_packages[2], "Serilog"); 
+        assert_eq!(masked_packages[3], "Serilog.*"); 
     }
 }

@@ -11,6 +11,9 @@ pub fn create_masked_packages(map: HashMap<&str, Vec<&str>>) -> Vec<String> {
         }
 
         if v.len() > 1 {
+            if v.contains(k) {
+                packages.push(k.to_string());
+            }
             let masked = get_masked_name(k);
             packages.push(masked);
         }
@@ -19,7 +22,7 @@ pub fn create_masked_packages(map: HashMap<&str, Vec<&str>>) -> Vec<String> {
             let first_value = v[0].to_string();
 
             if key == first_value {
-                packages.push(k.to_string());
+                packages.push(key);
             }
             else {
                 let masked = get_masked_name(k);
