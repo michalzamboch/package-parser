@@ -2,6 +2,13 @@
 
 use std::collections::*;
 
+pub fn create_package_patterns(packages: Vec<String>) -> Vec<String> {
+    packages
+        .iter()
+        .map(|p| format!("<package pattern=\"{p}\" />").to_string())
+        .collect::<Vec<String>>()
+}
+
 pub fn create_masked_packages(map: HashMap<&str, Vec<&str>>) -> Vec<String> {
     let mut packages: Vec<String> = vec![];
 

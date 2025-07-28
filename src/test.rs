@@ -142,4 +142,18 @@ mod tests {
         assert_eq!(masked_packages[2], "Serilog"); 
         assert_eq!(masked_packages[3], "Serilog.*"); 
     }
+
+    #[test]
+    fn test_packages_patterns() {
+        let packages = parse_packages(SERILOG_INPUT);
+        let map = create_package_map(packages);
+        let masked_packages = create_masked_packages(map);
+        let patterns = create_package_patterns(masked_packages);
+
+        assert_eq!(patterns.len(), 4);
+        assert_eq!(patterns[0], "<package pattern=\"MathNet.*\" />"); 
+        assert_eq!(patterns[1], "<package pattern=\"OneOf\" />"); 
+        assert_eq!(patterns[2], "<package pattern=\"Serilog\" />"); 
+        assert_eq!(patterns[3], "<package pattern=\"Serilog.*\" />"); 
+    }
 }
